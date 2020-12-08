@@ -1,0 +1,116 @@
+<div th:include="./header.html" th:remove="tag"></div>
+<div th:include="./navbar.html" th:remove="tag"></div>
+<div class="container">
+	<div class="row">
+		<div style="margin-top:0px;" class="mainbox col-md-6 col-md-offset-0 col-sm-8 col-sm-offset-2">
+			<label>Nuevo Animal</label>
+			
+			<form class="form-horizontal" role="form">
+			  <div class="form-group">
+			    <label for="txtDiioNuevo" class="col-lg-2 control-label">DIIO</label>
+			    <div class="col-lg-10">
+			      <input type="text" id="txtDiioNuevo" class="form-control input-number">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="cboCatNuevo" class="col-lg-2 control-label">Categoria</label>
+			    <div class="col-lg-10">
+			      <select id="cboCatNuevo" class="form-control"></select>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="cboSexoNuevo" class="col-lg-2 control-label">Sexo</label>
+			    <div class="col-lg-10">
+			      <select id="cboSexoNuevo" class="form-control">
+			      	<option value="" selected disabled hidden>Seleccione</option>
+			      	<option value="M">Macho</option>
+			      	<option value="H">Hembra</option>
+			      </select>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="cboEstNuevo" class="col-lg-2 control-label">Estado</label>
+			    <div class="col-lg-10">
+			      <select id="cboEstNuevo" class="form-control"></select>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="cboRazaNuevo" class="col-lg-2 control-label">Raza</label>
+			    <div class="col-lg-10">
+			      <select id="cboRazaNuevo" class="form-control"></select>
+			    </div>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="txtFnacNuevo" class="col-lg-2 control-label">Fecha nacimiento</label>
+			    <div class="col-lg-10">
+			      <input type="date" id="txtFnacNuevo" class="form-control">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="txtFincNuevo" class="col-lg-2 control-label">Fecha incorporación</label>
+			    <div class="col-lg-10">
+			      <input type="date" id="txtFincNuevo" class="form-control">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-lg-offset-2 col-lg-10">
+			      <button type="button" id="btnGuardaNuevo" class="btn btn-success">Guardar</button>
+			    </div>
+			  </div>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	var base_url = 'http://localhost:8080/';
+	var idEstablecimiento = 1;
+
+	llenaCboCategoria();
+	llenaCboRaza();
+	llenaCboEstado();
+
+	function llenaCboCategoria(nombreCombo){
+		$.ajax({
+			type: 'get',
+			url: base_url + 'categoria/'+idEstablecimiento,
+			success: function(data){
+				$('#cboCatNuevo').empty();
+				$.each(data,function(key, registro) {
+			        $('#cboCatNuevo').append('<option value="0" selected disabled hidden>Seleccione</option>'+'<option value='+registro.idCategoriaAnimal+'>'+registro.descripcion+'</option>');
+			    });        
+			},
+		});
+	}
+
+	function llenaCboRaza(nombreCombo){
+		$.ajax({
+			type: 'get',
+			url:  base_url + 'raza/all-razas/'+idEstablecimiento,
+			success: function(data){
+				$('#cboRazaNuevo').empty();
+				$.each(data,function(key, registro) {
+			        $('#cboRazaNuevo').append('<option value="0" selected disabled hidden>Seleccione</option>'+'<option value='+registro.idRaza+'>'+registro.descripcion+'</option>');
+			    });        
+			},
+		});
+	}
+
+	function llenaCboEstado(nombreCombo){
+		$.ajax({
+			type: 'get',
+			url:  base_url + 'estado/all-estados',
+			success: function(data){
+				$('#cboEstNuevo').empty();
+				$.each(data,function(key, registro) {
+			        $('#cboEstNuevo').append('<option value="0" selected disabled hidden>Seleccione</option>'+'<option value='+registro.idEstadoAnimal+'>'+registro.descripcion+'</option>');
+			    });        
+			},
+		});
+	}
+});
+</script>
+</html>

@@ -1,0 +1,114 @@
+<div th:include="./header.html" th:remove="tag"></div>
+<div th:include="./navbar.html" th:remove="tag"></div>
+
+	<div class="container">
+		<!--<div id="loginbox" style="margin-top:0px;" class="mainbox col-md-6 col-md-offset-1 col-sm-8 col-sm-offset-1">-->
+      <label for="cboCatAnimales">Lista de Animales por Categoria</label>
+			<form class="form-inline">
+				  <div class="form-group">
+           <input type="checkbox" id="chkCategoriaAll" value="todos">
+           Todas
+         </div>
+
+        <div class="form-group">
+          Categoria
+          <select id="cboCatAnimales" class="form-control"></select>
+				 </div>
+
+        <div class="form-group">
+            Estado
+            <select id="cboEstadoVacaLista" class="form-control"></select>
+         </div>
+         <div class="form-group">
+           <button type="button" id="btnListAnimales" class="btn btn-success">Buscar</button>
+         </div>
+			</form>
+	<br/>		
+        <!--</div>-->
+        <div class="">
+	        <table id="listaVacas" class="table table-hover table-striped table-bordered font-table">
+	        	<thead>
+	        	   
+	        	</thead>
+	        	<tbody>
+	        		
+	        	</tbody>
+	        </table>
+        </div>
+	</div>
+</body>
+
+<!-- Modal -->
+<div id="modalNewVaca" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Registro de Vacas</h4>
+      </div>
+      <div class="modal-body">
+        <label>Diio</label>
+        <input type="text" id="txtDiioVaca" class="form-control input-number">
+        <label>Categoria</label>
+        <select class="form-control" id="cboCategoriaAnimal">
+        	
+        </select>
+        <label>Estado</label>
+        <select id="cboEstadoAnimal" class="form-control">
+        	
+        </select>
+
+        <label>Raza</label>
+        <select id="cboRazaVaca" class="form-control">
+        	
+        </select>
+
+      </div>
+      <div class="modal-footer">
+      	<button type="button" id="btnGuardaVaca" class="btn btn-primary">Aceptar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modalEditVaca" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modificar información de Vacas</h4>
+      </div>
+      <div class="modal-body">
+        <label>Diio</label>
+        <input type="text" id="txtDiioVacaEdit" class="form-control input-number" readonly="true">
+        <label>Categoria</label>
+        <select class="form-control" id="cboCategoriaAnimalEdit">
+        	
+        </select>
+        <label>Estado</label>
+        <select id="cboEstadoAnimalEdit" class="form-control">
+        	
+        </select>
+
+        <label>Raza</label>
+        <select id="cboRazaVacaEdit" class="form-control">
+        	
+        </select>
+
+      </div>
+      <div class="modal-footer">
+      	<button type="button" id="btnEditVaca" class="btn btn-primary">Aceptar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</html>

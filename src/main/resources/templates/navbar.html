@@ -1,0 +1,25 @@
+<div th:include="header.html" th:remove="tag"></div>
+ <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Gestión Fundo</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="http://localhost:8080/animales/list">Animales</a></li>
+              <li><a href="http://localhost:8080/lotes/">Lotes</a></li>
+              <li><a href="http://localhost:8080/tratamientos/">Tratamientos</a></li>
+              <li><a href="http://localhost:8080/partos/">Partos</a></li>
+              <li><a href="http://localhost:8080/pesaje/">Pesaje</a></li>
+            </ul>
+          
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>

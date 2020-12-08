@@ -1,0 +1,35 @@
+<div th:include="header.html" th:remove="tag"></div>
+<div th:include="./navbar.html" th:remove="tag"></div>
+<div class="container">
+    <div class="row">
+    <div id="loginbox" style="margin-top:0px;" class="mainbox col-md-6 col-md-offset-0 col-sm-8 col-sm-offset-2">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                Diio
+                <input type="text" class="input-number form-control" id="txtTtoDiioIndex">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-success" id="btnTtoBusca" >Buscar</button>
+            </div>
+            <div class="form-group">
+                <a href="http://localhost:8080/tratamientos/new/" target="blank" class="btn btn-primary">Nuevo Tratamiento</a>
+            </div>
+        </form>
+    </div>
+    </div>
+    <br>
+    <div id="loginbox" style="margin-top:0px;" class="mainbox col-md-6 col-md-offset-0 col-sm-3 col-sm-offset-2">
+        <div class="row">
+	        <table id="listaTtos" class="table table-hover table-striped table-bordered font-table">
+	        	<thead>
+	        	   
+	        	</thead>
+	        	<tbody>
+	        		
+	        	</tbody>
+	        </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

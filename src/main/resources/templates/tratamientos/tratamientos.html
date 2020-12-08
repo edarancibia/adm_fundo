@@ -1,0 +1,40 @@
+<div th:include="header.html" th:remove="tag"></div>
+<div th:include="./navbar.html" th:remove="tag"></div>
+<div class="container">
+    <div id="loginbox" style="margin-top:0px;" class="mainbox col-md-4 col-md-offset-2 col-sm-8 col-sm-offset-2">
+        Registro de tratamientos
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                Diio
+                <input type="text" class="input-number form-control" id="txtDiioTto" required>
+            </div>
+            <div class="form-group">
+                Tratamiento
+                <textarea  id="txtDescTto" cols="30" rows="5" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                Tiene resguardo? <br>
+                <input type="checkbox" id="checkResguardo" value="si"> Si<br>
+            </div>
+            <div class="form-group">
+                Periodo
+                <input type="text" class="input-number form-control" id="txtPeriodoTto" readonly="true" placeholder="Cantidad de días">
+            </div>
+            <div class="form-group">
+                A partir de
+                <input type="text" class="form-control" id="txtFechaTto" readonly="true">
+            </div>
+            <div class="form-group">
+                <button type="button" class=" btn btn-primary" id="btnOkTto"> Aceptar</button>
+            </div>
+        </form>
+    <br/>		
+    </div>
+</div>
+<script type="text/javascript">
+$(document).one('ready',function(){
+    $('#txtDiioTto').focus();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<div th:include="./header.html" th:remove="tag"></div>
+<div th:include="./navbar.html" th:remove="tag"></div>
+<div class="container">
+	<div id="loginbox" style="margin-top:0px;" class="mainbox col-md-10 col-md-offset-0 col-sm-8 col-sm-offset-2">
+			<form class="form-inline">
+				<label for="email">Lista de partos</label>
+				<div class="form-group">
+				    Desde
+				    <input type="date" id="txtFechaIniParto" class="form-control">
+				    Hasta
+				    <input type="date" id="txtFechaFinParto" class="form-control">
+
+				    Tipo
+				    <select id="cboTipoParto2" class="form-control"></select>
+
+                    <button type="button" id="btnBuscaPartos" class="btn btn-success">Buscar <span class="glyphicon glyphicon-search"></span></button>
+                    <button id="btnNuevoParto" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNewParto">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
+				</div>
+			</form>
+	<br/>		
+    </div>
+
+        <div class="">
+	        <table id="listaPartos" class="table table-hover table-striped table-bordered font-table">
+	        	<thead>
+	        	   
+	        	</thead>
+	        	<tbody>
+	        		
+	        	</tbody>
+	        </table>
+        </div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one('ready',function(e){
+		e.stopImmediatePropagation();
+		e.preventDefault();
+		llenaCombo();
+
+		function llenaCombo(){
+			
+				$.ajax({
+				type: 'get',
+				url: 'http://localhost:8080/tipo-parto/all-todos',
+				success: function(data){
+					$('#cboTipoParto2').empty();
+					$.each(data,function(key, registro) {
+				        $('#cboTipoParto2').append('<option value='+registro.idTipoParto+'>'+registro.descripcion+'</option>');
+				    });        
+				},
+			});
+		}
+	});
+</script>
+
+</body>
+
+<!-- Modal -->
+<div id="modalNewParto" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Nuevo Parto</h4>
+      </div>
+      <div class="modal-body">
+        <label>Diio Vaca</label>
+        <input type="text" id="txtDiioVacaParto" class="form-control input-number">
+        <label>Fecha</label>
+        <input type="date" id="txtFechaParto" class="form-control">
+
+        <label>Diio Ternero</label>
+        <input type="text" id="txtNuevoTernero" class="form-control input-number">
+
+        <label>Tipo de parto</label>
+        <select id="cboTipoParto" class="form-control">
+        	
+        </select>
+
+        <label>Sexo</label>
+        <select id="cboSexo" class="form-control">
+        	<option value="0">Seleccione</option>
+        	<option value="M">Macho</option>
+        	<option value="H">Hembra</option>
+        </select>
+
+        <label>Raza</label>
+        <select id="cboRazaTerneroParto" class="form-control">
+        	
+        </select>
+
+        <label>Observaciones</label>
+        <textarea id="txtObsParto" class="form-control" maxlength="100"></textarea>
+
+      </div>
+      <div class="modal-footer">
+      	<button type="button" id="btnGuardaParto" class="btn btn-primary">Aceptar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</html>
