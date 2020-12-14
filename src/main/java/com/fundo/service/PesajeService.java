@@ -16,14 +16,14 @@ public interface PesajeService {
 	
 	public abstract void removePesaje(Long idPesaje);
 	
-	List<Map<String, Object>> getPesoGanado(Long diio);
+	List<Map<String, Object>> getPesoGanado(Long diio,int idestablecimiento);
 	
-	List<Map<String, Object>> getPesajeByCategoria(Long idCategoria,Date fini, Date ffin);
+	List<Map<String, Object>> getPesajeByCategoria(Long idCategoria,Date fini, Date ffin,int idestablecimiento);
 	
-	List<Map<String, Object>> getPesajeByCategoriaAll(Date fini, Date ffin);
+	List<Map<String, Object>> getPesajeByCategoriaAll(Date fini, Date ffin, int idestablecimiento);
 	
-	List<Map<String, Integer>> getPesajeGrafico(Long diio);
+	List<Map<String, Integer>> getPesajeGrafico(Long diio, int idestablecimiento);
 	
-	Iterable<Map<Object, Integer>> getPesajeGrafico2(Long diio);
+	Iterable<Map<Object, Integer>> getPesajeGrafico2(Long diio, int idestablecimiento);
 	
 }

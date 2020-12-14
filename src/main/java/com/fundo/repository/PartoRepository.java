@@ -13,25 +13,25 @@ public interface PartoRepository extends JpaRepository<Parto, Long> {
 
 	@Query(value = "select distinct DATE_FORMAT(p.fecha,'%d-%m-%Y') as fecha,p.fecha as fech, p.diio_vaca as vaca,p.diio_ternero as ternero,r.descripcion as raza, t.descripcion as tipo,\r\n" + 
 			"			case a.sexo\r\n" + 
-			"				when 1 then 'Macho'\r\n" + 
+			"				when 'M' then 'Macho'\r\n" + 
 			"			else 'Hembra' \r\n" + 
 			"            end as sexo\r\n" + 
 			"from parto p, animal a, raza r, tipo_parto t\r\n" + 
 			"where p.tipo_parto =:tipoParto and p.idestablecimiento = :idEstablecimiento and\r\n" + 
 			"p.diio_ternero = a.diio and a.idraza = r.idRaza and\r\n" + 
-			"p.tipo_parto = t.idtipoParto and a.idcategoria = 7 and\r\n" +
+			"p.tipo_parto = t.idtipoParto and\r\n" +
 			"p.fecha between :fini and :ffin order by p.fecha", nativeQuery = true)
 	List<Map<String, Object>> getPartos(Date fini, Date ffin,Long tipoParto, int idEstablecimiento);
 	
 	@Query(value = "select distinct DATE_FORMAT(p.fecha,'%d-%m-%Y') as fecha,p.fecha as fech, p.diio_vaca as vaca,p.diio_ternero as ternero,r.descripcion as raza, t.descripcion as tipo,\r\n" + 
 			"			case a.sexo\r\n" + 
-			"				when 1 then 'Macho'\r\n" + 
+			"				when 'M' then 'Macho'\r\n" + 
 			"			else 'Hembra' \r\n" + 
 			"            end as sexo\r\n" + 
 			"from parto p, animal a, raza r, tipo_parto t\r\n" + 
 			"where p.idestablecimiento = :idEstablecimiento and\r\n" + 
 			"p.diio_ternero = a.diio and a.idraza = r.idRaza and\r\n" + 
-			"p.tipo_parto = t.idtipoParto and a.idcategoria = 7 and\r\n" +
+			"p.tipo_parto = t.idtipoParto and \r\n" +
 			"p.fecha between :fini and :ffin order by p.fecha",nativeQuery = true)
 	List<Map<String, Object>> getPartosAll(Date fini, Date ffin, int idEstablecimiento);
 }

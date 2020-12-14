@@ -241,10 +241,8 @@ $(document).one('ready',function(){
 					contentType: "application/json; charset=utf-8",
 					success: function(){
 						$('#modalEditVaca').modal('hide');
-						$('#modalEditVaca').modal('hide');
 						$('body').removeClass('modal-open');
 						$('.modal-backdrop').remove();
-						console.log('nuevo registro insertado');
 
 						//RECARGA TABLA LISTA VACAS
 						var cat = $("#cboCatAnimales").val();
@@ -482,7 +480,7 @@ $(document).one('ready',function(){
 	});
 
 	//GUARDA NUEVO PARTO
-	$('#btnGuardaParto').on('click', function(e){
+	$('#btnGuardaParto').on('click', function(e){			
 		e.stopImmediatePropagation()
 		
 		if(($('#txtDiioVacaParto').val() < 1) || ($('#txtNuevoTernero').val() < 1) || $('#cboRazaTerneroParto').val() < 1 || $('#cboTipoParto').val() < 1 || $('#txtFechaParto').val() == ""){
@@ -562,7 +560,6 @@ $(document).one('ready',function(){
 														type: 'get',
 														url: base_url+'lotes/get-lote-defecto/'+idEstablecimiento,
 														success: function(data){
-															console.log(data);
 															var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
 															var form_loteAnimal = {
 																'idLote'  : data[0].idLote,
@@ -579,7 +576,8 @@ $(document).one('ready',function(){
 																contentType: "application/json; charset=utf-8",
 																success: function(){
 																	$('#modalNewParto').modal('hide');
-																	window.location.reload();
+																	$('body').removeClass('modal-open');
+																	$('.modal-backdrop').remove();
 																},
 																error: function(){
 																	console.log('error en lote animal');
@@ -617,6 +615,17 @@ $(document).one('ready',function(){
 	});
 
 	//bucar partos
+
+	$("#chkPartosAll").on( 'change', function(e) {
+		e.stopImmediatePropagation();
+		if( $(this).is(':checked') ) {
+			// SELECCIONA TODAS LAS CATEGORIAS
+			$("#cboTipoParto2").attr('disabled',true);
+		} else {
+			$("#cboTipoParto2").attr('disabled',false);
+		}
+	});
+
 	$('#btnBuscaPartos').on('click',function(e){
 		e.stopImmediatePropagation();
 		var fini = $('#txtFechaIniParto').val();
@@ -624,7 +633,7 @@ $(document).one('ready',function(){
 		var tipo = $('#cboTipoParto2').val();
 		var url = '';
 
-		if (tipo == 6) {
+		if($('#chkPartosAll').is(':checked') ) {
 			url = 'all-partos/'
 		}else{
 			url = 'all/'
@@ -636,7 +645,6 @@ $(document).one('ready',function(){
 			data: {fini: fini, ffin: ffin, tipoParto: tipo, idEstablecimiento: 1},
 			contentType: "application/json; charset=utf-8",
 			success: function(data){
-				console.log(data);
 				$('#listaPartos th').remove();
 					$("#listaPartos thead").append("<th>Fecha</th><th>Diio Vaca</th><th>Diio Ternero</th><th>Raza</th><th>Sexo</th><th>Tipo</th>");
 					$('#listaPartos tr').remove();
@@ -671,7 +679,7 @@ $(document).one('ready',function(){
 			//busca el ultimo peso registrado
 			$.ajax({
 				type: 'get',
-				url: base_url + '/pesaje/get-ultimo/'+diio,
+				url: base_url + 'pesaje/get-ultimo/'+diio+'/'+idEstablecimiento,
 				success: function(data){
 					console.log('ultimo peso: ');
 					if(data.length < 1){
@@ -727,18 +735,28 @@ $(document).one('ready',function(){
 	});
 
 	//lista de historial de pesaje
+	$("#chkPesajeAll").on( 'change', function(e) {
+		e.stopImmediatePropagation();
+		if( $(this).is(':checked') ) {
+			// SELECCIONA TODAS LAS CATEGORIAS
+			$("#cboCategoriaPesaje").attr('disabled',true);
+		} else {
+			$("#cboCategoriaPesaje").attr('disabled',false);
+		}
+	});
+
 	$('#btnBuscaPesaje').on('click',function(e){
 		e.stopImmediatePropagation();
 		var idCategoria = $('#cboCategoriaPesaje').val();
 		var fini = $('#txtFechaIniPesaje').val();
 		var ffin = $('#txtFechaFinPesaje').val();
-		var request,url;
-		var datos = {};
+		var idEstablecimiento = 1;
+		var request;
 
-		if (idCategoria != 6) {
-			request = 'pesaje/pesajes-categoria/'+idCategoria;
+		if ($('#chkPesajeAll').is(':checked')) {
+			request = 'pesaje/pesajes-categoria-todos/'+idEstablecimiento;
 		}else{
-			request = 'pesaje/pesajes-categoria-todos/';
+			request = 'pesaje/pesajes-categoria/'+idCategoria+'/'+idEstablecimiento;
 		}
 		
 		$.ajax({
@@ -754,7 +772,7 @@ $(document).one('ready',function(){
 					$('<tr>').html(
         				"<td>"+data[i].diio +"</td><td>"+ data[i].peso + "</td><td>" +
         				 data[i].ganado + "</td><td>" + data[i].fecha + "</td><td>"+
-        				 data[i].sexo + "</td><td><a href="+base_url+"pesaje/chart/"+data[i].diio + " target='blank' class='btn btn-info'><span class='glyphicon glyphicon-stats'></span> Gráfico</a></td></tr>").appendTo('#listaPesaje');
+        				 data[i].sexo + "</td><td><a href="+base_url+"pesaje/chart/"+data[i].diio + "/"+idEstablecimiento+" target='blank' class='btn btn-info'><span class='glyphicon glyphicon-stats'></span> Gráfico</a></td></tr>").appendTo('#listaPesaje');
 					});
 			},
 			error: function(){

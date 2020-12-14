@@ -40,28 +40,31 @@ public class PesajeServiceImpl implements PesajeService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getPesoGanado(Long diio) {
-		return pesajeRepository.getPesoGanado(diio);
+	public List<Map<String, Object>> getPesoGanado(Long diio, int idestablecimiento) {
+		return pesajeRepository.getPesoGanado(diio, idestablecimiento);
 	}
 
 	@Override
-	public List<Map<String, Object>> getPesajeByCategoria(Long idCategoria, Date fini, Date ffin) {
-		return pesajeRepository.getPesajeByCategoria(idCategoria, fini, ffin);
+	public List<Map<String, Object>> getPesajeByCategoria(Long idCategoria, Date fini, Date ffin,
+			int idestablecimiento) {
+		return pesajeRepository.getPesajeByCategoria(idCategoria, fini, ffin, idestablecimiento);
 	}
 
 	@Override
-	public List<Map<String, Integer>> getPesajeGrafico(Long diio) {
-		return pesajeRepository.getPesajeGrafico(diio);
+	public List<Map<String, Object>> getPesajeByCategoriaAll(Date fini, Date ffin, int idestablecimiento) {
+		return pesajeRepository.getPesajeByCategoriaAll(fini, ffin, idestablecimiento);
 	}
 
 	@Override
-	public Iterable<Map<Object, Integer>> getPesajeGrafico2(Long diio) {
-		return pesajeRepository.getPesajeGrafico2(diio);
+	public List<Map<String, Integer>> getPesajeGrafico(Long diio, int idestablecimiento) {
+		return pesajeRepository.getPesajeGrafico(diio, idestablecimiento);
 	}
 
 	@Override
-	public List<Map<String, Object>> getPesajeByCategoriaAll(Date fini, Date ffin) {
-		return pesajeRepository.getPesajeByCategoriaAll(fini, ffin);
+	public Iterable<Map<Object, Integer>> getPesajeGrafico2(Long diio, int idestablecimiento) {
+		return pesajeRepository.getPesajeGrafico2(diio, idestablecimiento);
 	}
+	
+	
 
 }
