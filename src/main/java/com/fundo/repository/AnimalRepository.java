@@ -60,9 +60,9 @@ List<Map<String, Object>> getByCategoriaAndEstadoAndEstablecimiento(int idCatego
 			"			IF(l.descripcion is null,'Sin Lote',l.descripcion )as lote,  \r\n" + 
 			"			a.sexo as sexo,DATE_FORMAT(la.fecha_accion,'%d-%m-%Y') as fecha \r\n" + 
 			"			from animales a\r\n" + 
-			"			left join lote_animales la on a.diio  = la.idAnimal \r\n" + 
+			"			left join lote_animal la on a.diio  = la.idAnimal \r\n" + 
 			"			LEFT join raza r on r.idRaza = a.idraza \r\n" + 
-			"			LEFT  join categoria_animal ca on ca.idCategoriaAnimal  = a.idCategoria\r\n" + 
+			"			LEFT  join categoria_animal ca on ca.idCategoriaAnimal  = a.idcategoria\r\n" + 
 			"			LEFT JOIN  estado_animal ea on ea.idEstadoAnimal = a.idestado \r\n" + 
 			"			LEFT JOIN lotes l on l.idLote = la.idLote \r\n" + 
 			"			where \r\n" + 
@@ -74,10 +74,10 @@ List<Map<String, Object>> getByCategoriaAndEstadoAndEstablecimiento(int idCatego
 	@Query(value = "select \r\n" + 
 			"a.diio ,la.idLote ,ca.descripcion as categoria,DATE_FORMAT(la.fecha_accion,'%d-%m-%Y') as fecha, \r\n" + 
 			"a.sexo \r\n" +
-			"from animales a \r\n" + 
-			"left join lote_animales la on a.diio =la.idAnimal\r\n" + 
+			"from animal a \r\n" + 
+			"left join lote_animal la on a.diio =la.diio\r\n" + 
 			"left join categoria_animal ca on a.idcategoria = ca.idCategoriaAnimal \r\n" + 
-			"where la.vigente = 1 and la.idLote =:idLote and a.idestablecimiento =:idEstablecimiento and la.idestablecimiento =:idEstablecimiento", nativeQuery = true)
+			"where la.vigente = 1 and a.estado = 1 and  la.idLote =:idLote and a.idestablecimiento =:idEstablecimiento and la.id_establecimiento =:idEstablecimiento", nativeQuery = true)
 	List<Map<String, Object>> getByLoteAndEstablecimiento(int idLote, int idEstablecimiento);
 	
 }

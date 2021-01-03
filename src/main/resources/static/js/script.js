@@ -968,10 +968,10 @@ $(document).one('ready',function(){
 					//alertify.success('Si');
 
 					var checkIDs = $("input:checkbox:checked").map(function(){
-						return this.value;
+						return parseInt(this.value);
 					}).toArray();
 					
-					console.log(checkIDs);
+					//console.log(JSON.stringify(checkIDs));
 					var idEstablecimiento = 1;
 					//dejar los registros de lote_animales, campo vigente=0
 					$.ajax({
@@ -981,7 +981,56 @@ $(document).one('ready',function(){
 						contentType: "application/json; charset=utf-8",
 						success: function(){
 							console.log('registros actualizados');
-							//window.location.reload();
+							
+							var i = 0;
+
+							for(i of checkIDs){
+								
+								var loteNew = $('#cboLoteAsignar').val();
+								var form_animalLote = {
+									'idLote' 	: loteNew,
+									'diio'		: i,
+									'vigente'	: 1,
+									'idEstablecimiento' : idEstablecimiento,
+									'fechaAccion' 		: new Date()
+								}
+								console.log(i);
+								
+								$.ajax({
+									type: 'post',
+									url: base_url +'lotes/add-animal-lote/',
+									data:JSON.stringify(form_animalLote),
+									contentType: "application/json; charset=utf-8",
+									success: function(){
+										console.log('registros insertados');
+										var idLoteActual = $('#cboLoteBusca').val();
+
+										$.ajax({
+											type: 'get',
+											url: base_url + 'animales/get-by-lote-and-est/'+idLoteActual+'/'+idEstablecimiento,
+											success: function(data){
+												console.log(data);
+												$('#tablaAnimalesLotes th').remove();
+												$("#tablaAnimalesLotes thead").append("<th>Diio</th><th>Sexo</th><th>Fecha</th><th></th>");
+												$('#tablaAnimalesLotes tr').remove();
+												$.each(data, function(i, item){
+												$('<tr>').html(
+													"<td>"+data[i].diio +"</td><td>"+ data[i].sexo + "</td>" +
+													"<td>" + data[i].fecha+ "</td>"+
+													 "<td><input type='checkbox' value="+data[i].diio+ " name='chk' id='chkBox" + i + "' /></td></tr>").appendTo('#tablaAnimalesLotes');
+												});
+											},
+											error: function(){
+												console.log('error al cargar lista de animales lote');
+											}
+										});
+									},
+									error: function(){
+										console.log('error insertando registros '+ JSON.stringify(checkIDs) );
+									}
+								});
+								
+							}
 						},
 						error: function(){
 							console.log('error actualizando registros '+ JSON.stringify(checkIDs) );

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Gestión Ganadera - Registro de Usuario</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+
+
+    <!--LOGIN AND REGISTER VIEW-->
+
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" th:href="@{/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" th:href="@{/vendor/animate/animate.css}">
+    <!--===============================================================================================-->	
+        <link rel="stylesheet" type="text/css" th:href="@{/vendor/css-hamburgers/hamburgers.min.css}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" th:href="@{/vendor/animsition/css/animsition.min.css}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" th:href="@{/vendor/select2/select2.min.css}">
+    <!--===============================================================================================-->	
+        <link rel="stylesheet" type="text/css" th:href="@{/vendor/daterangepicker/daterangepicker.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <!--===============================================================================================-->
+    
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" href="#" th:src="@{/js/jquery.js}"></script> 
+
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    
+
+    <!-- LOGIN AND REGISTER VIEW-->
+
+    <!--===============================================================================================-->
+        <script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
+    <!--===============================================================================================-->
+        <script th:src="@{/vendor/select2/select2.min.js}"></script>
+    <!--===============================================================================================-->
+        <script th:src="@{/vendor/daterangepicker/moment.min.js}"></script>
+        <script th:src="@{/vendor/daterangepicker/daterangepicker.js}"></script>
+    <!--===============================================================================================-->
+        <script th:src="@{/vendor/countdowntime/countdowntime.js}"></script>
+    <!--===============================================================================================-->
+       <script th:src="@{/js/main.js}"></script>
+
+</head>
+
+<div th:include="header.html" th:remove="tag"></div>
+
+<body style="background-color: #5cc28a;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="login100-more" style="background-image: url('/img/angus.jpg');"></div>
+
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50" style="padding-top: 30px;">
+				<form class="login100-form validate-form" th:action="@{/save}" method="POST" >
+					<span class="login100-form-title p-b-59" style="padding-bottom: 30px;">
+						Registro de Usuario
+					</span>
+
+					<div class="wrap-input100 validate-input text-login-botom" data-validate="Nombre es requerido">
+						<span class="label-input100">Nombres</span>
+						<input class="input100" type="text" th:field="*{usuario.nombre}" name="name" placeholder="Nombres..." required>
+						<span class="focus-input100"></span>
+                    </div>
+                    
+                    <div class="wrap-input100 validate-input text-login-botom" data-validate="Nombre es requerido">
+						<span class="label-input100">Apellidos</span>
+						<input class="input100" type="text" th:field="*{usuario.apellido}" name="name" placeholder="Apellido Paterno..." required>
+						<span class="focus-input100"></span>
+                    </div>
+
+					<div class="wrap-input100 validate-input text-login-botom" data-validate = "Email es requerido: ex@abc.xyz">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="text" th:field="*{usuario.email}" id="txtEmail" name="email" placeholder="Email..." required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input text-login-botom" data-validate="Username is required">
+						<span class="label-input100">Repetir Email</span>
+						<input class="input100" type="text" name="username" id="txtEmail2" placeholder="Repetir Email..." required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input text-login-botom" data-validate = "Password es requerido"> 
+						<span class="label-input100">Password</span>
+						<input class="input100" th:field="*{usuario.password}" id="txtPass" minlength="6" type="password" name="pass" placeholder="*************" required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input text-login-botom" data-validate = "Repetir Password es requerido">
+						<span class="label-input100">Repetir Password</span>
+						<input class="input100" type="password" id="txtPass2" name="repeat-pass" placeholder="*************" required>
+						<span class="focus-input100"></span>
+                    </div>
+
+					<div th:if="${errormail != null}" class="alert alert-danger" role="alert">El correo ya está registrado</div>
+					<div th:if="${success != null}" class="alert alert-success" role="alert">Usuario registrado exitosamente</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button type="submit" class="login100-form-btn">
+								Registrar
+							</button>
+						</div>
+
+						<a th:href="@{'/'}" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
+							Ir a iniciar sesión
+							<i class="fas fa-sign-in-alt"></i>
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	var Fn = {
+  // Valida el rut con su cadena completa "XXXXXXXX-X"
+  validaRut : function (rutCompleto) {
+    rutCompleto = rutCompleto.replace("‐","-");
+    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto ))
+      return false;
+    var tmp   = rutCompleto.split('-');
+    var digv  = tmp[1]; 
+    var rut   = tmp[0];
+    if ( digv == 'K' ) digv = 'k' ;
+    
+    return (Fn.dv(rut) == digv );
+  },
+  dv : function(T){
+    var M=0,S=1;
+    for(;T;T=Math.floor(T/10))
+      S=(S+T%10*(9-M++%6))%11;
+    return S?S-1:'k';
+  }
+}
+
+$('#txtRutNum').blur(function(){
+	if (Fn.validaRut( $("#txtRutNum").val() )){
+    	console.log("El rut ingresado es válido");
+  } else {
+		alert("El Rut no es válido");
+		$('#txtRutNum').focus();
+  }
+});
+
+$('#txtEmail2').blur(function(){
+	if($('#txtEmail').val() != $('#txtEmail2').val()){
+		alert('Los correos no coinciden');
+		$('#txtEmail').focus();
+	}
+});
+
+$('#txtPass2').blur(function(){
+	if($('#txtPass').val() != $('#txtPass2').val()){
+		alert('Las contraseñas no coinciden');
+		$('#txtPass').focus();
+	}
+})
+
+</script>
+</html>
