@@ -1,7 +1,7 @@
 $(document).one('ready',function(){
 
 	var base_url = 'http://localhost:8080/';
-	var idEstablecimiento = 1;
+	var idEstablecimiento = $('#txtIdEstab').val();
 
 	$('.input-number').on('input', function () { 
     	this.value = this.value.replace(/[^0-9]/g,'');
@@ -29,7 +29,7 @@ $(document).one('ready',function(){
 		var cat = $("#cboCatAnimales").val();
 		var est = $("#cboEstadoVacaLista").val();
 		var url = '';
-		var idEstablecimiento = 1;
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		if( $('#chkCategoriaAll').is(':checked')  ) {
 		    url = 'animales/list-by-est/'+ idEstablecimiento;
@@ -57,7 +57,7 @@ $(document).one('ready',function(){
 					}
 				});
 		}else{
-			url = 'animales/list-by-cat-and-est/'+cat+'/'+est+'/'+1
+			url = 'animales/list-by-cat-and-est/'+cat+'/'+est+'/'+idEstablecimiento
 
 			if(cat > 0 && est >0){
 				//BUSCA SEGUN LOS PARAMETROS
@@ -91,7 +91,7 @@ $(document).one('ready',function(){
 
 
 	//NUEVA SECCION DE NUEVO ANIMAL
-	$('#cboCatNuevo').on('change',function(e){
+	/*$('#cboCatNuevo').on('change',function(e){
 		e.stopImmediatePropagation();
 		var cat = $('#cboCatNuevo').val();
 		if (cat == 8) {
@@ -99,11 +99,12 @@ $(document).one('ready',function(){
 		} else if(cat >= 0 && cat <=3){
 			$("select#cboSexoNuevo")[0].selectedIndex = 2;
 		}
-	});
+	});*/
 
 	//GUARDA NUEVO ANIMAL
 	$('#btnGuardaNuevo').on('click',function(ev){
 		ev.stopImmediatePropagation();
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		if($('#txtDiioNuevo').val() == ''){
 			alert('Debe ingresar Diio');
@@ -248,7 +249,7 @@ $(document).one('ready',function(){
 						var cat = $("#cboCatAnimales").val();
 						var est = $("#cboEstadoVacaLista").val();
 						var url = '';
-						var idEstablecimiento = 1;
+						var idEstablecimiento = $('#txtIdEstab').val();
 
 						if( $('#chkCategoriaAll').is(':checked')  ) {
 							url = 'animales/list-by-est/'+ idEstablecimiento;
@@ -276,7 +277,7 @@ $(document).one('ready',function(){
 									}
 								});
 						}else{
-							url = 'animales/list-by-cat-and-est/'+cat+'/'+est+'/'+1
+							url = 'animales/list-by-cat-and-est/'+cat+'/'+est+'/'+idEstablecimiento
 
 							if(cat > 0 && est >0){
 								//BUSCA SEGUN LOS PARAMETROS
@@ -319,7 +320,7 @@ $(document).one('ready',function(){
 	function llenaCboCategoria(nombreCombo){
 		$.ajax({
 			type: 'get',
-			url: base_url + 'categoria/all/'+1,
+			url: base_url + 'categoria/all/'+idEstablecimiento,
 			success: function(data){
 				$(nombreCombo).empty();
 				$.each(data,function(key, registro) {
@@ -458,11 +459,12 @@ $(document).one('ready',function(){
 		console.log(diio_vaca2);
 		$('#txtDiioVacaEdit').val(diio_vaca2);
 		var diio = diio_vaca2;
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		//carga los datos de la vaca seleccionada de la lista
 		$.ajax({
 			type: 'get',
-			url: base_url +"animales/find/"+ diio+"/"+1,
+			url: base_url +"animales/find/"+ diio+"/"+idEstablecimiento,
 			success: function(data){
 				console.log(data.idEstadoAnimal);
 				var estado = data.idEstadoAnimal;
@@ -489,7 +491,7 @@ $(document).one('ready',function(){
 
 			//valida si la vaca existe buscando por DIIO,categoria ternero(7) y establecimiento
 			var diio = $('#txtDiioVacaParto').val();
-			var idEstablecimiento = 1;
+			var idEstablecimiento = $('#txtIdEstab').val();
 				$.ajax({
 					type: 'get',
 					url: base_url + 'animales/find/'+diio+'/'+idEstablecimiento,
@@ -632,6 +634,7 @@ $(document).one('ready',function(){
 		var ffin = $('#txtFechaFinParto').val();
 		var tipo = $('#cboTipoParto2').val();
 		var url = '';
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		if($('#chkPartosAll').is(':checked') ) {
 			url = 'all-partos/'
@@ -642,7 +645,7 @@ $(document).one('ready',function(){
 		$.ajax({
 			type:'get',
 			url: url,
-			data: {fini: fini, ffin: ffin, tipoParto: tipo, idEstablecimiento: 1},
+			data: {fini: fini, ffin: ffin, tipoParto: tipo, idEstablecimiento: idEstablecimiento},
 			contentType: "application/json; charset=utf-8",
 			success: function(data){
 				$('#listaPartos th').remove();
@@ -668,7 +671,7 @@ $(document).one('ready',function(){
 		var diio = $('#txtDiioPesaje').val();
 		var cat = $('#cboCategoriaPesaje2').val();
 		var ultPeso = '';
-		var idEstablecimiento = 1;
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		//comprueba que categoria de animal es para poder validar si existe el diio. cat 7 = ternero
 		if (cat == null) {
@@ -750,7 +753,7 @@ $(document).one('ready',function(){
 		var idCategoria = $('#cboCategoriaPesaje').val();
 		var fini = $('#txtFechaIniPesaje').val();
 		var ffin = $('#txtFechaFinPesaje').val();
-		var idEstablecimiento = 1;
+		var idEstablecimiento = $('#txtIdEstab').val();
 		var request;
 
 		if ($('#chkPesajeAll').is(':checked')) {
@@ -784,6 +787,7 @@ $(document).one('ready',function(){
 	// - - - - - LOTES - - - - - - - -
 	$('#btnNuevoLote').on('click',function(e){
 		e.stopImmediatePropagation();
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		if ($('#txtLote').val() == '') {
 			alert('Ingrese nombre del lote');
@@ -792,7 +796,7 @@ $(document).one('ready',function(){
 		}else{
 			var formLote = {
 				'descripcion' : $('#txtLote').val(),
-				'idEstablecimiento': 1,
+				'idEstablecimiento': idEstablecimiento,
 				'vigente': 1
 			};
 
@@ -821,7 +825,8 @@ $(document).one('ready',function(){
 
 	$('#btnLoteEdit').on('click',function(e){
 		e.stopImmediatePropagation();
-		var idLote = $('#txtHiddenLote').val(); 
+		var idLote = $('#txtHiddenLote').val();
+		var idEstablecimiento = $('#txtIdEstab').val();
 		
 		if($('#txtLoteEdit').val() == ''){
 			alert('Debe ingresar nombre');
@@ -829,7 +834,7 @@ $(document).one('ready',function(){
 		}else{
 			var formLote = {
 				'descripcion' : $('#txtLoteEdit').val(),
-				'idEstablecimiento': 1
+				'idEstablecimiento': idEstablecimiento
 			};
 
 			$.ajax({
@@ -859,7 +864,7 @@ $(document).one('ready',function(){
 		e.stopImmediatePropagation();
 		var diio = $('#txtLoteAnimal').val();
 		var idLote = $('#hiddenIdLote').val();
-		var idEstablecimiento = 1;
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		if (diio == '') {
 			alert('Ingrese Diio');
@@ -887,7 +892,7 @@ $(document).one('ready',function(){
 										'idLote' : idLote,
 										'diio'   : diio,
 										'vigente': 1,
-										'idEstablecimiento' : 1,
+										'idEstablecimiento' : idEstablecimiento,
 										'fecha_accion' : new Date()
 									}
 
@@ -927,7 +932,7 @@ $(document).one('ready',function(){
 		e.stopImmediatePropagation();
 		var idLote = $('#cboLoteAsignar').val();
 		var idLoteActual = $('#cboLoteBusca').val();
-		var idEstablecimiento = 1;
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		if(idLoteActual == null){
 			alert('Seleccione un lote');
@@ -972,7 +977,7 @@ $(document).one('ready',function(){
 					}).toArray();
 					
 					//console.log(JSON.stringify(checkIDs));
-					var idEstablecimiento = 1;
+					var idEstablecimiento = $('#txtIdEstab').val();
 					//dejar los registros de lote_animales, campo vigente=0
 					$.ajax({
 						type: 'put',
@@ -1051,7 +1056,7 @@ $(document).one('ready',function(){
 	$('#btnTtoBusca').on('click',function(e){
 		e.stopImmediatePropagation();
 		var diio = $('#txtTtoDiioIndex').val();
-		var idEstablecimiento = 1;
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		//valida si el animal existe
 		$.ajax({
@@ -1065,12 +1070,14 @@ $(document).one('ready',function(){
 					success: function(data){
 						$('#listaTtos th').remove();
 						$('#listaTtos tr').remove();
-						$("#listaTtos thead").append("<th>Diio</th><th>Fecha</th><th>Tratamiento</th><th>Dias Resguardo</th><th></th>");
+						$("#listaTtos thead").append("<th>Diio</th><th>Raza</th><th>Estado</th><th>Fecha</th><th>Tratamiento</th><th>Dias Resguardo</th>");
 						$('#tablaAnlistaTtosimalesLotes tr').remove();
 						$.each(data, function(i, item){
 						$('<tr>').html(
-							"<td>"+data[i].diio +"</td><td>"+ data[i].fecha + "</td><td>" +
-							data[i].descripcion + "</td><td>" + data[i].resguardo+ "</td>"+
+							"<td>"+data[i].diio +"</td>"+ 
+							"<td>"+ data[i].raza + "</td>" + 
+							"<td>"+ data[i].estadoAnimal + "</td>" + "<td>"+data[i].fecha + "</td>" +
+							"<td>"+data[i].tratamiento + "</td><td>" + data[i].resguardo+ "</td>"+
 							"</tr>").appendTo('#listaTtos');
 						});
 					}
@@ -1094,7 +1101,7 @@ $(document).one('ready',function(){
 		var dias = '';
 		var fecha_desde = '';
 		var fecha_hasta = '';
-		var idEstablecimiento = 1;
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 		if(diio == '' || descripcion == ''){
 			alert('Debe completar todos los datos');
@@ -1172,7 +1179,50 @@ $(document).one('ready',function(){
 			$('#txtPeriodoTto').attr('readonly', 'readonly');
 			$('#txtFechaTto').attr('readonly', 'readonly');
 		}
-	})
+	});
+
+	//NUEVO ESTABLECMIENTO - USUARIO
+	$('#nuevoEstab').on('click', function(e){
+		e.stopImmediatePropagation();
+
+		$('#modalNewEstab').modal('show');
+	});
+
+	$('#btnGuardaEstab').on('click', function(e) {		
+		form_data = {
+			'descripcion' : $('#txtNuevoEstab').val(),
+			'vigente': 1
+		};
+
+		//'idusuario' : $('#hiddenUsu2').val(),
+
+		$.ajax({
+			type: 'post',
+			url: base_url +'establecimiento/add',
+			data: JSON.stringify(form_data),
+			contentType: "application/json; charset=utf-8",
+			success: function(data){
+				console.log('nuevo estab: ' + JSON.stringify(data));
+				$('#idestab').val(data.idEstablecimiento);
+
+				$.ajax({
+					type: 'post',
+					url: base_url+'establecimiento/usu-est',
+					contentType: "application/json; charset=utf-8",
+					data: JSON.stringify({idestablecimiento:$('#idestab').val(),idusuario: $('#hiddenUsu2').val() }),
+					success: function(){
+						console.log('usuario-estab ok');
+					},
+					error: function(){
+						console.error('error al crear usu-est');
+					}
+				});
+			},
+			error: function(){
+				comsole.log('error al crear establecimiento');
+			}
+		});
+	});
 
 });
 

@@ -28,7 +28,7 @@ import com.fundo.serviceImpl.AnimalServiceImpl;
 
 @RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
-@SessionAttributes({"idusuario","username","idestablecimiento"})
+@SessionAttributes({"idusuario","role","username","rutusu","idestab","usernomestab"})
 @RequestMapping("/animales")
 public class AnimalController {
 	

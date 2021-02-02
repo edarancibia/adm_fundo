@@ -10,4 +10,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	public abstract Usuario findByEmailAndPassword(String email, String password);
 	public abstract Usuario findByEmail(String email);
+	public abstract Usuario findByIdUsuario(Long idusuario);
+
 }

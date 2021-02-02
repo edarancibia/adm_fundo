@@ -30,13 +30,14 @@
 <script type="text/javascript">
 	$(document).one('ready',function(){
 	 	var base_url = 'http://localhost:8080/';
+		var idEstablecimiento = $('#txtIdEstab').val();
 
 	 	llenaTabla();
 
 	 	function llenaTabla(){
 	 		$.ajax({
 				type:'get',
-				url: base_url + 'lotes/by-establecimiento/'+1,
+				url: base_url + 'lotes/by-establecimiento/'+idEstablecimiento,
 				success: function(data){
 					console.log(data);
 					$('#listaLotes th').remove();
@@ -44,7 +45,7 @@
 						$('#listaLotes tr').remove();
 						$.each(data, function(i, item){
 						$('<tr>').html(
-	        				"<td  style='display:none;'>"+data[i].idLote +"</td><td><a href="+base_url+"lotes/detalle/"+data[i].idLote+'/'+1+" target='black'>"+ data[i].descripcion + "</a></td>" +
+	        				"<td  style='display:none;'>"+data[i].idLote +"</td><td><a href="+base_url+"lotes/detalle/"+data[i].idLote+'/'+idEstablecimiento+" target='black'>"+ data[i].descripcion + "</a></td>" +
 	        				 "<td><a href=#" +" target='blank' class='btn btn-info'><span class='glyphicon glyphicon-plus'></span> Agregar animales</a></td>"+
 	        				 "<td><button id='btnEditaLote' type='button' data-id="+data[i].idLote+" data-toggle='modal' data-target='#modalLoteEdit' class='btn btn-info'> <span class='glyphicon glyphicon-pencil'></span> "+"Cambiar nombre</button></td>"+ "<td><a href=#" +" target='blank' class='btn btn-danger'><span "+"class='glyphicon glyphicon-remove'></span> Eliminar</a></td></tr>").appendTo('#listaLotes');
 						});

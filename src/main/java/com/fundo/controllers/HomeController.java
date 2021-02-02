@@ -3,6 +3,7 @@ package com.fundo.controllers;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.LogFactory;
@@ -20,8 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fundo.entities.Establecimiento;
 import com.fundo.entities.Usuario;
+import com.fundo.entities.UsuarioEstablecimiento;
 import com.fundo.serviceImpl.EstablecimientoServiceImpl;
+import com.fundo.serviceImpl.UsuarioEstbSerciceImpl;
 import com.fundo.serviceImpl.UsuarioServiceImpl;
 
 import jdk.internal.org.jline.utils.Log;
@@ -29,7 +33,7 @@ import jdk.internal.org.jline.utils.Log;
 
 @RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
-@SessionAttributes({"idusuario","role","username","rutusu"})
+@SessionAttributes({"idusuario","role","username","rutusu","idestab","usernomestab"})
 @RequestMapping("/")
 public class HomeController {
 
@@ -40,6 +44,9 @@ public class HomeController {
 	
 	@Autowired
 	public EstablecimientoServiceImpl estabService;
+	
+	@Autowired
+	public UsuarioEstbSerciceImpl usEstSer;
 	
 	@GetMapping("")
 	public ModelAndView login(Usuario usuario){
@@ -91,10 +98,17 @@ public class HomeController {
 		if(null !=  usuDb) {
 			Usuario usu = usuarioService.findByEmail(email);
 			session.setAttribute("idusuario", usu.getIdUsuario().toString());
+			List<UsuarioEstablecimiento> usrEstab = usEstSer.findByIdusuario(usu.getIdUsuario().intValue());
+			//Long idestab_ = (long) usrEstab.getIdestablecimiento();
+			//Establecimiento estab = estabService.fingByIdestablecimiento(idestab_);
+			//session.setAttribute("idestab", String.valueOf(usrEstab.getIdestablecimiento()));
 			session.setAttribute("username", usu.getNombre()+' '+usu.getApellido());
+			//session.setAttribute("usernomestab",session.getAttribute("username")+" - "+ estab.getDescripcion().toString());
 			model.addAttribute("username", session.getAttribute("username"));
 			model.addAttribute("idusuario", session.getAttribute("idusuario"));
-			LOG.info("usuario : "+ usu.getIdUsuario().toString());
+			model.addAttribute("idestab", session.getAttribute("idestab"));
+			model.addAttribute("usernomestab", session.getAttribute("usernomestab"));
+			LOG.info("estab : "+ model.getAttribute("usernomestab"));
 			
 			model.addAttribute("estabs",this.getEstabs(usu.getIdUsuario()));
 			vista = "user/select-estab";
@@ -108,10 +122,66 @@ public class HomeController {
 		
 	}
 	
+	@GetMapping("/selected-estab/{idusuario}")
+	public ModelAndView selectEstab(@PathVariable int idusuario, HttpSession session, Model model,
+			@RequestParam(name="cboEstabs")int cboEstabs) {
+		
+		ModelAndView mv = new ModelAndView("./animales/lista");
+		Long idusuario_ = (long)idusuario;
+		Usuario usu = usuarioService.findByIdUsuario(idusuario_);
+		session.setAttribute("idusuario", idusuario);
+		Long idestab_ = (long)cboEstabs;
+		Establecimiento estab = estabService.fingByIdestablecimiento(idestab_);
+		session.setAttribute("idestab", cboEstabs);
+		session.setAttribute("username", usu.getNombre()+' '+usu.getApellido());
+		session.setAttribute("usernomestab",session.getAttribute("username")+" - "+ estab.getDescripcion().toString());
+		model.addAttribute("username", session.getAttribute("username"));
+		model.addAttribute("idusuario", session.getAttribute("idusuario"));
+		model.addAttribute("idestab", session.getAttribute("idestab"));
+		model.addAttribute("usernomestab", session.getAttribute("usernomestab"));
+		
+		model.addAttribute("estabs",this.getEstabs(usu.getIdUsuario()));
+		
+		return mv;
+	}
+	
+	@GetMapping("/get-estabs-by-user/{idusuario}")
+	public ModelAndView getEstabs(@PathVariable int idusuario, Model model,HttpSession session) {
+		ModelAndView mv = new ModelAndView("user/select-estab");
+		
+		Long idusuario_ = (long)idusuario;
+		Usuario usu = usuarioService.findByIdUsuario(idusuario_);
+		session.setAttribute("idusuario", idusuario);
+		List<UsuarioEstablecimiento> usrEstab = usEstSer.findByIdusuario(usu.getIdUsuario().intValue());
+		//Long idestab_ = (long) usrEstab.getIdestablecimiento();
+		//Establecimiento estab = estabService.fingByIdestablecimiento(idestab_);
+		//session.setAttribute("idestab", String.valueOf(usrEstab.getIdestablecimiento()));
+		session.setAttribute("username", usu.getNombre()+' '+usu.getApellido());
+		//session.setAttribute("usernomestab",session.getAttribute("username")+" - "+ estab.getDescripcion().toString());
+		model.addAttribute("username", session.getAttribute("username"));
+		model.addAttribute("idusuario", session.getAttribute("idusuario"));
+		model.addAttribute("idestab", session.getAttribute("idestab"));
+		model.addAttribute("usernomestab", session.getAttribute("usernomestab"));
+		
+		model.addAttribute("estabs",this.getEstabs(usu.getIdUsuario()));
+		return mv;
+	}
+	
+	
 	@GetMapping("/get-estabs/{idusuario}")
 	public List<Map<String, Object>> getEstabs(@PathVariable Long idusuario){
 		List<Map<String, Object>> estabs = estabService.getEstablecimientosByUser(idusuario);
 		return estabs;
 	}
+	
+	@RequestMapping(value = "/logout")
+	public ModelAndView logout(HttpServletRequest request) {
+	    HttpSession session = request.getSession(false);
+	    if (session != null) {
+	        session.invalidate();
+	    }
+	    return new ModelAndView("user/login") ;  //Where you go after logout here.
+	}
+	
 
 }

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fundo.entities.Establecimiento;
+import com.fundo.entities.UsuarioEstablecimiento;
 import com.fundo.serviceImpl.EstablecimientoServiceImpl;
+import com.fundo.serviceImpl.UsuarioEstbSerciceImpl;
 
 @RestController
 @RequestMapping("/establecimiento")
@@ -23,12 +25,26 @@ public class EstablecimientoController {
 	@Autowired
 	public EstablecimientoServiceImpl service;
 	
+	@Autowired
+	public UsuarioEstbSerciceImpl usEstaService;
+	
 	@PostMapping("/add")
-	public ResponseEntity<Establecimiento> addEstablecimiento(@RequestBody Establecimiento establecimiento){
+	public ResponseEntity<?> addEstablecimiento(@RequestBody Establecimiento establecimiento){
+		
+		Establecimiento newestab = new Establecimiento();
 		if(establecimiento != null) {
-			establecimiento = service.addEstablecimiento(establecimiento);
+			newestab = service.addEstablecimiento(establecimiento);
 		}
-		return new ResponseEntity<Establecimiento>(establecimiento,HttpStatus.OK);
+		return new ResponseEntity<Establecimiento>(newestab,HttpStatus.OK);
+	}
+	
+	@PostMapping("/usu-est")
+	public ResponseEntity<?> addUsuEstab(@RequestBody UsuarioEstablecimiento usuEstab){
+		UsuarioEstablecimiento newUsuEst = new UsuarioEstablecimiento();
+		if(usuEstab != null) {
+			newUsuEst = usEstaService.addUserEstab(usuEstab);
+		}
+		return new ResponseEntity<UsuarioEstablecimiento>(newUsuEst,HttpStatus.OK);
 	}
 	
 	@GetMapping("/by-user/{idUsuario}")

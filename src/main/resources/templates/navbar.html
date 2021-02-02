@@ -13,11 +13,11 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="http://localhost:8080/animales/list">Animales</a></li>
-              <li><a href="http://localhost:8080/lotes/asignar">Lotes</a></li>
-              <li><a href="http://localhost:8080/tratamientos/">Tratamientos</a></li>
-              <li><a href="http://localhost:8080/partos/">Partos</a></li>
-              <li><a href="http://localhost:8080/pesaje/">Pesaje</a></li>
+              <li class="active"><a href="/animales/list">Animales</a></li>
+              <li><a href="/lotes/asignar">Lotes</a></li>
+              <li><a href="/tratamientos/">Tratamientos</a></li>
+              <li><a href="/partos/">Partos</a></li>
+              <li><a href="/pesaje/">Pesaje</a></li>
             </ul>
           
           </div><!--/.nav-collapse -->
@@ -25,8 +25,10 @@
       </nav>
       <div style="width: max;">
         <div style="width: 300px;float:right;">
+          <input type="hidden" name="txtIdestab" id="txtIdEstab" th:value="${idestab}">
           <input type="hidden" name="hiddenUsu" id="hiddenUsu" th:value="${idusuario}">
-          <p id="label-username" th:text="${username}" style="font-size: 14px;"><i class="fas fa-user"></i></p>
-            <a href="/logout" class="logout">Cerrar sesión <i class="fas fa-sign-out-alt"></i></a>
+          <p id="label-username" th:text="${usernomestab}" style="font-size: 14px;"><i class="fas fa-user"></i></p>
+          <a th:href="@{'/get-estabs-by-user/' + ${idusuario}}">Cambiar Establecimiento</a>
+            <a href="/logout" class="logout"><span class="glyphicon glyphicon-off"></span></a>
         </div>
     </div>
