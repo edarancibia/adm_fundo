@@ -672,12 +672,6 @@ $(document).one('ready',function(){
 		var cat = $('#cboCategoriaPesaje2').val();
 		var ultPeso = '';
 		var idEstablecimiento = $('#txtIdEstab').val();
-
-		//comprueba que categoria de animal es para poder validar si existe el diio. cat 7 = ternero
-		if (cat == null) {
-			alert('Debe seleccionar categoria');
-		}
-
 		
 			//busca el ultimo peso registrado
 			$.ajax({
@@ -697,8 +691,7 @@ $(document).one('ready',function(){
 						'peso'     : $('#txtPeso').val(),
 						'ganado'   : $('#txtPeso').val() - ultPeso,
 						'observaciones' : $('#txtObsPesaje').val(),
-						'idEstablecimiento': idEstablecimiento,
-						'idCategoria' : cat
+						'idEstablecimiento': idEstablecimiento
 					};
 
 					$.ajax({
