@@ -28,8 +28,6 @@ import com.fundo.serviceImpl.EstablecimientoServiceImpl;
 import com.fundo.serviceImpl.UsuarioEstbSerciceImpl;
 import com.fundo.serviceImpl.UsuarioServiceImpl;
 
-import jdk.internal.org.jline.utils.Log;
-
 
 @RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
