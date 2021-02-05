@@ -1,6 +1,7 @@
 $(document).one('ready',function(){
 
-	var base_url = 'http://localhost:8080/';
+	//var base_url = 'http://localhost:8080/';
+	var base_url = 'https://apolus.herokuapp.com/'; 
 	var idEstablecimiento = $('#txtIdEstab').val();
 
 	$('.input-number').on('input', function () { 

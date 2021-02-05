@@ -39,6 +39,8 @@
 </div>
 <script type="text/javascript">
   $(document).one('ready',function(e){
+    //var base_url = 'http://localhost:8080/';
+	  var base_url = 'https://apolus.herokuapp.com/'; 
     var idEstablecimiento = $('#txtIdEstab').val();
     e.stopImmediatePropagation();
     e.preventDefault();
@@ -48,7 +50,7 @@
       
         $.ajax({
         type: 'get',
-        url: 'http://localhost:8080/categoria/'+idEstablecimiento,
+        url: base_url +'categoria/'+idEstablecimiento,
         success: function(data){
           $('#cboCategoriaPesaje').empty();
           $.each(data,function(key, registro) {

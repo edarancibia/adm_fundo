@@ -15,7 +15,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+    //var base_url = 'http://localhost:8080/';
+	var base_url = 'http://apolus.herokuapp.com/'; 
     var idEstablecimiento = $('#txtIdEstab').val();;
     var diio = $('#txtdiio').val();
 
@@ -25,7 +26,7 @@ $(document).ready(function() {
                 Accept : "application/json; charset=utf-8",
                 "Content-Type" : "application/json; charset=utf-8"
             },
-            url : 'http://localhost:8080/pesaje/grafico-peso/'+diio+'/'+idEstablecimiento,
+            url : base_url +'pesaje/grafico-peso/'+diio+'/'+idEstablecimiento,
             success : function(result) {
                 google.charts.load('current', {
                     'packages' : [ 'corechart' ]

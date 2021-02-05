@@ -39,15 +39,18 @@
 </div>
 <script type="text/javascript">
 	$(document).one('ready',function(e){
+		
 		e.stopImmediatePropagation();
 		e.preventDefault();
+		//var base_url = 'http://localhost:8080/';
+		var base_url = 'https://apolus.herokuapp.com/'; 
 		llenaCombo();
 
 		function llenaCombo(){
 			
 				$.ajax({
 				type: 'get',
-				url: 'http://localhost:8080/tipo-parto/all-todos',
+				url: base_url+'tipo-parto/all-todos',
 				success: function(data){
 					$('#cboTipoParto2').empty();
 					$.each(data,function(key, registro) {
