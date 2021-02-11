@@ -77,7 +77,7 @@ $(document).ready(function() {
 	function llenaCboCategoria(nombreCombo){
 		$.ajax({
 			type: 'get',
-			url: base_url + 'categoria/'+idEstablecimiento,
+			url: base_url + 'categoria/all/'+idEstablecimiento,
 			success: function(data){
 				$('#cboCatNuevo').empty();
 				$.each(data,function(key, registro) {
@@ -103,7 +103,7 @@ $(document).ready(function() {
 	function llenaCboEstado(nombreCombo){
 		$.ajax({
 			type: 'get',
-			url:  base_url + 'estado/all-estados',
+			url:  base_url + 'estado/all-estados/'+idEstablecimiento,
 			success: function(data){
 				$('#cboEstNuevo').empty();
 				$.each(data,function(key, registro) {

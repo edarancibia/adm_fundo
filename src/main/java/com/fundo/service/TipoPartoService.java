@@ -7,6 +7,8 @@ import com.fundo.entities.TipoParto;
 
 public interface TipoPartoService {
 
+	public abstract TipoParto addTipoParto(TipoParto tipo);
+	
 	public abstract List<TipoParto> findAll();
 	
 	List<Map<Object, String>> getTipoParto();

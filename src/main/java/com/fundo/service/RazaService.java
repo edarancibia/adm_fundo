@@ -8,5 +8,7 @@ public interface RazaService {
 
 	public abstract List<Raza> findAll();
 	
+	public abstract Raza addRaza(Raza raza);
 	List<Raza> findByIdEstablecimiento(int idestablecimiento);
+	
 }

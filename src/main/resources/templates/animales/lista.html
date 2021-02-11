@@ -115,4 +115,57 @@
 
   </div>
 </div>
+</body>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  
+    //var base_url = 'http://localhost:8080/';
+    var base_url = 'https://apolus.herokuapp.com/'; 
+    var idEstablecimiento = $('#txtIdEstab').val();
+  
+    llenaCboCategoria();
+    llenaCboRaza();
+    llenaCboEstado();
+  
+    function llenaCboCategoria(nombrCombo){
+      $.ajax({
+        type: 'get',
+        url: base_url + 'categoria/all/'+idEstablecimiento,
+        success: function(data){
+          $('#cboCatAnimales').empty();
+          $.each(data,function(key, registro) {
+                $('#cboCatAnimales').append('<option value="0" selected disabled hidden>Seleccione</option>'+'<option value='+registro.idCategoriaAnimal+'>'+registro.descripcion+'</option>');
+            });        
+        },
+      });
+    }
+  
+    function llenaCboRaza(nombreCombo){
+      $.ajax({
+        type: 'get',
+        url:  base_url + 'raza/all-razas/'+idEstablecimiento,
+        success: function(data){
+          $('#cboRazaNuevo').empty();
+          $.each(data,function(key, registro) {
+                $('#cboRazaNuevo').append('<option value="0" selected disabled hidden>Seleccione</option>'+'<option value='+registro.idRaza+'>'+registro.descripcion+'</option>');
+            });        
+        },
+      });
+    }
+  
+    function llenaCboEstado(nombreCombo){
+      $.ajax({
+        type: 'get',
+        url:  base_url + 'estado/all-estados/'+idEstablecimiento,
+        success: function(data){
+          $('#cboEstadoVacaLista').empty();
+          $.each(data,function(key, registro) {
+                $('#cboEstadoVacaLista').append('<option value="0" selected disabled hidden>Seleccione</option>'+'<option value='+registro.idEstadoAnimal+'>'+registro.descripcion+'</option>');
+            });        
+        },
+      });
+    }
+  });
+  </script>
 </html>

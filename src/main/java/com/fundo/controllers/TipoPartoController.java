@@ -6,14 +6,19 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.fundo.entities.Lote;
 import com.fundo.entities.TipoParto;
 import com.fundo.serviceImpl.TipoPartoServiceImpl;
 
@@ -44,5 +49,13 @@ public class TipoPartoController {
 	public @ResponseBody List<Map<Object, String>> getAll(){
 		List<Map<Object, String>> tipos = tPartoService.getTipoParto();
 		return tipos;
+	}
+	
+	@PostMapping("/save")
+	public ResponseEntity<?> addTipoParto(@RequestBody TipoParto tipo){
+		if(tipo != null) {
+			tipo = tPartoService.addTipoParto(tipo);
+		}
+		return new ResponseEntity<TipoParto>(tipo,HttpStatus.OK);
 	}
 }

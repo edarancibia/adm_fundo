@@ -38,4 +38,22 @@ public class CategoriaAnimalServiceImpl implements CategorialAnimalService {
 		return repository.findByIdEstablecimiento(idEstablecimiento);
 	}
 
+	@Override
+	public CategoriaAnimal addCategoriaAnimal(CategoriaAnimal categoria) {
+		return repository.save(categoria);
+	}
+
+	@Override
+	public void deleteCategoria(Long idcategoria) {
+		if(this.findByIdCategoriaAnimal(idcategoria) != null) {
+			repository.deleteById(idcategoria);
+		}
+		
+	}
+
+	@Override
+	public CategoriaAnimal findByIdCategoriaAnimal(Long idcategoria) {
+		return repository.findByIdCategoriaAnimal(idcategoria);
+	}
+
 }

@@ -10,8 +10,8 @@ $(document).one('ready',function(){
 
 
 // - - - - - SECCION LISTA AMINALES - - - - -  
-	llenaComboEstadoVaca();
-	llenaCombos();
+	//llenaComboEstadoVaca();
+	//llenaCombos($('#txtIdEstab').val());
 
 	$("#chkCategoriaAll").on( 'change', function(e) {
 		e.stopImmediatePropagation();
@@ -152,7 +152,7 @@ $(document).one('ready',function(){
 								data: JSON.stringify(formAnimal),
 								contentType: "application/json; charset=utf-8",
 								success: function(){
-									alert('Animal registrado exitosamente!');									
+									//alert('Animal registrado exitosamente!');									
 						          },
 							}).done(function(){
 								//INSERTA EN TABLA LOTE_ANIMALES EN LOTE "SIN LOTE"
@@ -318,7 +318,7 @@ $(document).one('ready',function(){
 		}
 	});
 
-	function llenaCboCategoria(nombreCombo){
+	function llenaCboCategoria(nombreCombo,idEstablecimiento){
 		$.ajax({
 			type: 'get',
 			url: base_url + 'categoria/all/'+idEstablecimiento,
@@ -332,10 +332,10 @@ $(document).one('ready',function(){
 	}
 
 	//carga combo categorias del modal editar animalm este combo no tiene el item "seleccione" por defecto
-	function llenaCboCategoria2(nombreCombo){
+	function llenaCboCategoria2(nombreCombo,idEstablecimiento){
 		$.ajax({
 			type: 'get',
-			url: base_url + 'categoria/all/'+1,
+			url: base_url + 'categoria/all/'+idEstablecimiento,
 			success: function(data){
 				$(nombreCombo).empty();
 				$.each(data,function(key, registro) {
@@ -358,10 +358,10 @@ $(document).one('ready',function(){
 		});
 	}
 
-	function llenaCboEstado2(nombreCombo){
+	function llenaCboEstado2(nombreCombo,idEstablecimiento){
 		$.ajax({
 			type: 'get',
-			url:  base_url + 'estado/all-estados',
+			url:  base_url + 'estado/all-estados/'+idEstablecimiento,
 			success: function(data){
 				$(nombreCombo).empty();
 				$.each(data,function(key, registro) {
@@ -416,14 +416,14 @@ $(document).one('ready',function(){
 
 	function llenaCombos(){
 		//llenaCboCategoria("#cboCategoriaAnimal");
-		llenaCboCategoria("#cboCatAnimales");
+		llenaCboCategoria("#cboCatAnimales", idEstablecimiento);
 		llenaCboEstado("#cboEstadoAnimal");
 		llenaCboRaza("#cboRazaVaca");
 	}
 
 	function llenaCombosEdit(){
-		llenaCboCategoria2("#cboCategoriaAnimalEdit");
-		llenaCboEstado2("#cboEstadoAnimalEdit");
+		llenaCboCategoria2("#cboCategoriaAnimalEdit",idEstablecimiento);
+		llenaCboEstado2("#cboEstadoAnimalEdit", idEstablecimiento);
 		llenaCboRaza2("#cboRazaVacaEdit");
 	}
 
@@ -1205,6 +1205,7 @@ $(document).one('ready',function(){
 					contentType: "application/json; charset=utf-8",
 					data: JSON.stringify({idestablecimiento:$('#idestab').val(),idusuario: $('#hiddenUsu2').val() }),
 					success: function(){
+						$('#modalNewEstab').modal('hide');
 						console.log('usuario-estab ok');
 					},
 					error: function(){
@@ -1218,6 +1219,153 @@ $(document).one('ready',function(){
 		});
 	});
 
+	//- - - - CONFIG  - - - - -
+	$('#btnGuardaCategoria').on('click',function(e){
+		e.stopImmediatePropagation();
+		var idEstablecimiento = $('#txtIdEstab').val();
+
+		var form_cat = {
+			'descripcion' : $('#txtNuevaCat').val(),
+			'idestablecimiento' : idEstablecimiento
+		}
+
+		$.ajax({
+			type:'post',
+			url: base_url+'categoria/save',
+			data: JSON.stringify(form_cat),
+			contentType: "application/json; charset=utf-8",
+			success: function(){
+				$.ajax({
+					type:'get',
+					url: base_url + 'categoria/all/'+idEstablecimiento,
+					success: function(data){
+						console.log(data);
+						$('#listaCategorias th').remove();
+							$("#listaCategorias thead").append("<th style='display:none;'>Id</th><th>Categoria</th><th><button type='button' id='addCat' class='btn btn-primary' data-toggle='modal' data-target='#modalNewCat'> <span class='glyphicon glyphicon-plus'></span> </button></th>");
+							$('#listaCategorias tr').remove();
+							$.each(data, function(i, item){
+							$('<tr>').html(
+								"<td  style='display:none;'>"+data[i].idCategoria +"</td><td>"+data[i].descripcion+"</td>" +
+								"<td><a href=#" +" target='blank' class='btn btn-danger'> <span "+"class='glyphicon glyphicon-remove'></span> </a></td></tr>").appendTo('#listaCategorias');
+							});
+					},
+					error: function(){
+						console.log('error al buscar categorias');
+					}
+				});
+
+				$('#modalNewCat').modal('hide');
+				$('.modal-backdrop').remove();
+			},
+			error: function(){
+				console.log('Error al crear categoria');
+			}
+		});
+	
+	});
+
+		
+		$('#btnGuardaEstado').on('click',function(e){
+			e.stopImmediatePropagation();
+			var idEstablecimiento = $('#txtIdEstab').val();
+	
+			var form_est = {
+				'descripcion' : $('#txtNuevoEst').val(),
+				'idEstablecimiento' : idEstablecimiento
+			}
+
+			
+		$.ajax({
+			type:'post',
+			url: base_url+'estado/save',
+			data: JSON.stringify(form_est),
+			contentType: "application/json; charset=utf-8",
+			success: function(){
+				$.ajax({
+					type:'get',
+					url: base_url + 'estado/all-estados/'+idEstablecimiento,
+					success: function(data){
+						console.log(data);
+						$('#listaEst th').remove();
+							$("#listaEst thead").append("<th style='display:none;'>Id</th><th>Estado</th><th><button type='button' id='addEst' class='btn btn-primary' data-toggle='modal' data-target='#modalNewEst'> <span class='glyphicon glyphicon-plus'></span> </button></th>");
+							$('#listaEst tr').remove();
+							$.each(data, function(i, item){
+							$('<tr>').html(
+								"<td  style='display:none;'>"+data[i].idEstado +"</td><td>"+data[i].descripcion+"</td>" +
+								"<td><a href=#" +" target='blank' class='btn btn-danger'> <span "+"class='glyphicon glyphicon-remove'></span> </a></td></tr>").appendTo('#listaEst');
+							});
+
+							$('#modalNewEst').modal('hide');
+							$('.modal-backdrop').remove();
+					},
+					error: function(){
+						console.log('error al buscar estado');
+					}
+				});
+
+				$('#modalNewEst').modal('hide');
+				$('.modal-backdrop').remove();
+			},
+			error: function(){
+				console.log('Error al crear estados');
+			}
+		});
+		
+	});
+
+		$('#btnGuardaRaza').on('click',function(e){
+			e.stopImmediatePropagation();
+			var idEstablecimiento = $('#txtIdEstab').val();
+	
+			var form_raza = {
+				'descripcion' : $('#txtNuevaRaza').val(),
+				'idEstablecimiento' : idEstablecimiento
+			}
+
+			$.ajax({
+				type:'post',
+				url: base_url+'raza/save',
+				data: JSON.stringify(form_raza),
+				contentType: "application/json; charset=utf-8",
+				success: function(){
+					$.ajax({
+						type:'get',
+						url: base_url + 'raza/all-razas/'+idEstablecimiento,
+						success: function(data){
+							console.log(data);
+							$('#listaRaza th').remove();
+								$("#listaRaza thead").append("<th style='display:none;'>Id</th><th>Raza</th><th><button type='button' id='addRaza' class='btn btn-primary' data-toggle='modal' data-target='#modalNewRaza'> <span class='glyphicon glyphicon-plus'></span> </button></th>");
+								$('#listaRaza tr').remove();
+								$.each(data, function(i, item){
+								$('<tr>').html(
+									"<td  style='display:none;'>"+data[i].idRaza +"</td><td>"+data[i].descripcion+"</td>" +
+									"<td><a href=#" +" target='blank' class='btn btn-danger'> <span "+"class='glyphicon glyphicon-remove'></span> </a></td></tr>").appendTo('#listaRaza');
+								});
+
+								$('#modalNewRaza').modal('hide');
+								$('.modal-backdrop').remove();
+						},
+						error: function(){
+							console.log('error al buscar razas');
+						}
+					});
+
+					$('#modalNewRaza').modal('hide');
+					$('.modal-backdrop').remove();
+
+				},
+				error: function(){
+					console.log('Error al crear estados');
+				}
+			});
+		
+		});		
+
+		$('#btneliminaCat').on('click',function(e){
+			e.stopImmediatePropagation();
+			var cat = $('#btneliminaCat').attr('data-id');
+			alert(cat);
+		});
 });
 
 

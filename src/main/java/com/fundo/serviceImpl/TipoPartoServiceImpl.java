@@ -31,4 +31,9 @@ public class TipoPartoServiceImpl implements TipoPartoService {
 		return tPartoRepository.getTipoParto2();
 	}
 
+	@Override
+	public TipoParto addTipoParto(TipoParto tipo) {
+		return tPartoRepository.save(tipo);
+	}
+
 }

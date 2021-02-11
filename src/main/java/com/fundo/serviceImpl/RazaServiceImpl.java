@@ -24,4 +24,9 @@ public class RazaServiceImpl implements RazaService {
 	public List<Raza> findByIdEstablecimiento(int idestablecimiento) {
 		return razaRepository.findByIdEstablecimiento(idestablecimiento);
 	}
+
+	@Override
+	public Raza addRaza(Raza raza) {
+		return razaRepository.save(raza);
+	}
 }

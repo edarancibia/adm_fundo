@@ -7,6 +7,10 @@ import com.fundo.entities.CategoriaAnimal;
 
 public interface CategorialAnimalService {
 	
+	public abstract CategoriaAnimal findByIdCategoriaAnimal(Long idcategoria);
+	
+	public abstract CategoriaAnimal addCategoriaAnimal(CategoriaAnimal categoria);
+	
 	List<Map<Object, String>> getCategoriasPesaje();
 	
 	List<Map<Object, String>> getCategorias();
@@ -15,4 +19,6 @@ public interface CategorialAnimalService {
 	
 	//RECIBE UN 0 COMO PARAMETRO PARA OBTENER LAS CATEGORIAS POR DEFECTO
 	List<CategoriaAnimal> findByIdEstablecimiento(int idEstablecimiento);
+	
+	public void deleteCategoria(Long idcategoria);
 }

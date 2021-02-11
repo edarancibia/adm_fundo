@@ -25,4 +25,5 @@ public interface CategoriaAnimalRepository extends JpaRepository<CategoriaAnimal
 			"and a.idCategoriaAnimal <> 6",nativeQuery = true)
 	List<Map<Object, String>> getCategorias();
 	
+	public abstract CategoriaAnimal findByIdCategoriaAnimal(Long idcategoria);
 }

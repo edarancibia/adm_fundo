@@ -20,4 +20,14 @@ public class EstadoAnimalServiceImpl implements EstadoAnimalService {
 		return estadoRepository.findAll();
 	}
 
+	@Override
+	public EstadoAnimal addEstadoAnimal(EstadoAnimal estado) {
+		return estadoRepository.save(estado);
+	}
+
+	@Override
+	public List<EstadoAnimal> findByIdEstablecimiento(int idestablecimiento) {
+		return estadoRepository.findByIdEstablecimiento(idestablecimiento);
+	}
+
 }

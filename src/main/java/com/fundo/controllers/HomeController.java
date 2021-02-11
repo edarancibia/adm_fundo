@@ -106,7 +106,7 @@ public class HomeController {
 			model.addAttribute("idusuario", session.getAttribute("idusuario"));
 			model.addAttribute("idestab", session.getAttribute("idestab"));
 			model.addAttribute("usernomestab", session.getAttribute("usernomestab"));
-			LOG.info("estab : "+ model.getAttribute("usernomestab"));
+			LOG.info("estab : "+ model.getAttribute("usernomestab")+' '+ model.getAttribute("idestab"));
 			
 			model.addAttribute("estabs",this.getEstabs(usu.getIdUsuario()));
 			vista = "user/select-estab";

@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fundo.entities.Lote;
 import com.fundo.entities.Parto;
+import com.fundo.entities.TipoParto;
 import com.fundo.serviceImpl.PartoServiceImpl;
 
 @RestController
