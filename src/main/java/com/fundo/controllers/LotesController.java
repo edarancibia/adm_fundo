@@ -31,7 +31,7 @@ import com.fundo.serviceImpl.LoteAnimalServiceImpl;
 import com.fundo.serviceImpl.LoteServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT})
 @SessionAttributes({"idusuario","role","username","rutusu","idestab","usernomestab"})
 @RequestMapping("/lotes")
 public class LotesController {
