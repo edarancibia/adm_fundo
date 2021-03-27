@@ -1211,8 +1211,8 @@ $(document).one('ready',function(){
 						//CREA LOTE POR DEFECTO : SIN LOTE
 						var form_lote = {
 							'descripcion' 		: 'Sin Lote',
-							'fecha_creacion' 	: new Date(),
-							'idestablecimiento' : $('#idestab').val(),
+							'fechaCreacion' 	: new Date(),
+							'idEstablecimiento' : $('#idestab').val(),
 							'vigente'			: 1
 						}
 

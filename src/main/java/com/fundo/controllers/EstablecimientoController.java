@@ -1,9 +1,11 @@
 package com.fundo.controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fundo.entities.Establecimiento;
+import com.fundo.entities.Lote;
 import com.fundo.entities.UsuarioEstablecimiento;
 import com.fundo.serviceImpl.EstablecimientoServiceImpl;
+import com.fundo.serviceImpl.LoteServiceImpl;
 import com.fundo.serviceImpl.UsuarioEstbSerciceImpl;
 
 @RestController
@@ -32,6 +36,9 @@ public class EstablecimientoController {
 	
 	@Autowired
 	public UsuarioEstbSerciceImpl usEstaService;
+	
+	@Autowired
+	public LoteServiceImpl loteService;
 	
 	@PostMapping("/add")
 	public ResponseEntity<?> addEstablecimiento(@RequestBody Establecimiento establecimiento){
