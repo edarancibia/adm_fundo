@@ -1207,32 +1207,32 @@ $(document).one('ready',function(){
 					success: function(){
 						$('#modalNewEstab').modal('hide');
 						console.log('usuario-estab ok');
+
+						//CREA LOTE POR DEFECTO : SIN LOTE
+						var form_lote = {
+							'descripcion' 		: 'Sin Lote',
+							'fecha_creacion' 	: new Date(),
+							'idestablecimiento' : $('#idestab').val(),
+							'vigente'			: 1
+						}
+
+						$.ajax({
+							type: 'post',
+							url: base_url+'lotes/add',
+							contentType: "application/json; charset=utf-8",
+							data: JSON.stringify(form_lote),
+							success: function(){
+								console.log('lote x defecto ok');
+							},
+							error: function(){
+								console.error('error al crear lote x defecto');
+							}
+						});
 					},
 					error: function(){
 						console.error('error al crear usu-est');
 					}
-				}).done(function(){
-					//CREA LOTE POR DEFECTO : SIN LOTE
-					var form_lote = {
-						'descripcion' 		: 'Sin Lote',
-						'fecha_creacion' 	: new Date(),
-						'idestablecimiento' : $('#idestab').val(),
-						'vigente'			: 1
-					}
-
-					$.ajax({
-						type: 'post',
-						url: base_url+'lotes/add',
-						contentType: "application/json; charset=utf-8",
-						data: JSON.stringify(form_lote),
-						success: function(){
-							console.log('lote x defecto ok');
-						},
-						error: function(){
-							console.error('error al crear lote x defecto');
-						}
-					});
-				})
+				});
 			},
 			error: function(){
 				console.log('error al crear establecimiento');
