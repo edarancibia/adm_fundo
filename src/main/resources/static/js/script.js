@@ -876,7 +876,7 @@ $(document).one('ready',function(){
 						//VALIDA SI EL ANIMAL PERTENECE A ALGUN LOTE
 						$.ajax({
 							type: 'get',
-							url: base_url+'lotes/valida-animal-lote/'+idLote+'/'+diio+'/'+1,
+							url: base_url+'lotes/valida-animal-lote/'+idLote+'/'+diio+'/'+idEstablecimiento,
 							success: function(data){
 								console.log(data);
 								if(data == ''){
@@ -1211,10 +1211,31 @@ $(document).one('ready',function(){
 					error: function(){
 						console.error('error al crear usu-est');
 					}
-				});
+				}).done(function(){
+					//CREA LOTE POR DEFECTO : SIN LOTE
+					var form_lote = {
+						'descripcion' 		: 'Sin Lote',
+						'fecha_creacion' 	: new Date(),
+						'idestablecimiento' : $('#idestab').val(),
+						'vigente'			: 1
+					}
+
+					$.ajax({
+						type: 'post',
+						url: base_url+'lotes/add',
+						contentType: "application/json; charset=utf-8",
+						data: JSON.stringify(form_lote),
+						success: function(){
+							console.log('lote x defecto ok');
+						},
+						error: function(){
+							console.error('error al crear lote x defecto');
+						}
+					});
+				})
 			},
 			error: function(){
-				comsole.log('error al crear establecimiento');
+				console.log('error al crear establecimiento');
 			}
 		});
 	});
